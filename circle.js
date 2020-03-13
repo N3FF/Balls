@@ -7,7 +7,7 @@ function Circle(game) {
     this.enableCollision = false; // Enable & Disable Collision.
     this.game = game;
     this.color = colors;
-    this.radius = 10;
+    this.radius = 20;
     this.startVelocity = 25;
     this.gravity = Math.random() * (0.87 - 0.95) + 0.95;
     this.velocity = {

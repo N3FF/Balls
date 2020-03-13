@@ -36,7 +36,7 @@ var init = function () {
     canvasDimensions.width = canvas.width;
     canvasDimensions.height = canvas.height;
     gameEngine = new GameEngine();
-    for (var i = 0; i < 1; i++) {
+    for (var i = 0; i < 20; i++) {
         circle = new Circle(gameEngine);
         gameEngine.addEntity(circle);
     }
