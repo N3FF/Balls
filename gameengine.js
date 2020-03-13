@@ -137,12 +137,11 @@ GameEngine.prototype.loop = function () {
 }
 
 GameEngine.prototype.save = function () {
-    console.log("save entities " + this.entities.length);
     this.circles = [];
     for (var i = 0; i < this.entities.length; i++) {
         this.circles.push(this.entities[i].save());
     }
-    console.log(socket.emit("save", { studentname: "Neff", statename: "save", data: this.circles }));
+    socket.emit("save", { studentname: "Neff", statename: "save", data: this.circles });
 }
 GameEngine.prototype.load = function () {
     socket.emit("load", { studentname: "Neff", statename: "save" });
@@ -163,5 +162,4 @@ GameEngine.prototype.reload = function () {
         var circle = new Circle(this);
         this.addEntity(circle);
     }
-    console.log("reload entities " + this.entities.length);
 }

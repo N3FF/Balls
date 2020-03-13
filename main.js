@@ -20,9 +20,19 @@ function load(){
     gameEngine.load();
 }
 function reload(){
+    var btn = document.getElementById("collision");
+    btn.innerHTML = collision? "Disable Collision": "Enable Collision";
     gameEngine.reload();
 }
-
+function toggleCollision(){
+    var btn = document.getElementById("collision");
+    collision = !collision;
+    btn.innerHTML = collision? "Disable Collision": "Enable Collision";
+    for(var i = 0; i < gameEngine.entities.length;i++){
+        gameEngine.entities[i].toggleCollision();
+    }
+}
+var collision = false;
 var gameEngine;
 var socket;
 

@@ -4,7 +4,7 @@ function Circle(game) {
     for (var i = 0; i < 6; i++) {
         colors += letters[Math.floor(Math.random() * 16)];
     }
-    this.enableCollision = false; // Enable & Disable Collision.
+    this.enableCollision = collision; // Enable & Disable Collision.
     this.game = game;
     this.color = colors;
     this.radius = 20;
@@ -19,6 +19,8 @@ function Circle(game) {
 };
 Circle.prototype.load = function (obj) {
     obj = JSON.parse(obj);
+    if(collision !== obj.enableCollision)
+        toggleCollision();
     this.color = obj.color;
     this.radius = obj.radius;
     this.velocity = obj.velocity;
@@ -28,6 +30,7 @@ Circle.prototype.load = function (obj) {
 }
 Circle.prototype.save = function () {
     return JSON.stringify({
+        enableCollision: this.enableCollision,
         color: this.color,
         radius: this.radius,
         velocity: this.velocity,
@@ -35,6 +38,10 @@ Circle.prototype.save = function () {
         x: this.x,
         y: this.y,
     });
+}
+
+Circle.prototype.toggleCollision = function(){
+    this.enableCollision = !this.enableCollision;
 }
 // Collided with another circle
 Circle.prototype.collide = function (other) {

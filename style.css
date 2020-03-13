@@ -29,25 +29,39 @@ button:hover {
 }
 
 #reset {
-    top: 60px;
+    top: 100px;
     right: 20px;
     animation-name: botRow;
     animation-duration: 1s;
 }
+#collision{
+    top:60px;
+    right: 20px;
+    animation-name: midRow;
+    animation-duration: 1s;
+    width: 150px;
+}
 
 @keyframes topRow {
     0% {
-        top: -80px;
+        top: -120px;
     }
 
     100% {
         top: 20px;
     }
 }
+@keyframes midRow{
+    0% { top: -80px;
+    }
+    100%{
+        top: 60px;
+    }
+}
 @keyframes botRow{
     0% { top: -40px;
     }
     100%{
-        top: 60px;
+        top: 100px;
     }
 }
