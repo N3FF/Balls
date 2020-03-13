@@ -13,7 +13,21 @@ var canvasDimensions = {
     height: 0
 }
 
-var init = function(){
+function save(){
+    gameEngine.save();
+}
+function load(){
+    gameEngine.load();
+}
+function reload(){
+    gameEngine.reload();
+}
+
+var gameEngine;
+var socket;
+
+var init = function () {
+    socket = io.connect("http://24.16.255.56:8888");
     console.log("starting up da sheild");
     var canvas = document.getElementById('gameWorld');
     canvas.width = window.innerWidth;
@@ -21,16 +35,17 @@ var init = function(){
     var ctx = canvas.getContext('2d');
     canvasDimensions.width = canvas.width;
     canvasDimensions.height = canvas.height;
-    var gameEngine = new GameEngine();
-    for (var i = 0; i < 25; i++) {
+    gameEngine = new GameEngine();
+    for (var i = 0; i < 1; i++) {
         circle = new Circle(gameEngine);
         gameEngine.addEntity(circle);
     }
+    console.log(gameEngine.entities.length);
     gameEngine.init(ctx);
     gameEngine.start();
 }
 window.onload = init;
-window.addEventListener('resize', function(e){
+window.addEventListener('resize', function (e) {
     var canvas = document.getElementById('gameWorld');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;

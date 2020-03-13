@@ -1,0 +1,53 @@
+button {
+    position: absolute;
+    width: 70px;
+    height: 30px;
+    z-index: 2;
+    border: 1px solid black;
+    background-color: transparent;
+    cursor: pointer;
+    transition: ease-out .5s;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: rgba(188, 230, 255, 0.397);
+    transition: ease-in .25s;
+}
+#save {
+    top: 20px;
+    right: 100px;
+    animation-name: topRow;
+    animation-duration: 1s;
+}
+
+#load {
+    top: 20px;
+    right: 20px;
+    animation-name: topRow;
+    animation-duration: 1s;
+}
+
+#reset {
+    top: 60px;
+    right: 20px;
+    animation-name: botRow;
+    animation-duration: 1s;
+}
+
+@keyframes topRow {
+    0% {
+        top: -80px;
+    }
+
+    100% {
+        top: 20px;
+    }
+}
+@keyframes botRow{
+    0% { top: -40px;
+    }
+    100%{
+        top: 60px;
+    }
+}

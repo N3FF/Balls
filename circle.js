@@ -4,20 +4,38 @@ function Circle(game) {
     for (var i = 0; i < 6; i++) {
         colors += letters[Math.floor(Math.random() * 16)];
     }
-    this.enableCollision = true; // Enable & Disable Collision.
+    this.enableCollision = false; // Enable & Disable Collision.
     this.game = game;
     this.color = colors;
-    this.radius = 20;
+    this.radius = 10;
     this.startVelocity = 25;
-    this.gravity = Math.random() * (0.87-0.95) + 0.95;
-    this.velocity = { 
-        x: Math.random() * this.startVelocity/2 - this.startVelocity/4, 
-        y: Math.random() * this.startVelocity - this.startVelocity/2 
+    this.gravity = Math.random() * (0.87 - 0.95) + 0.95;
+    this.velocity = {
+        x: Math.random() * this.startVelocity / 2 - this.startVelocity / 4,
+        y: Math.random() * this.startVelocity - this.startVelocity / 2
     };
     this.x = this.radius + Math.random() * (canvasDimensions.width - this.radius);
-    this.y = this.radius + Math.random() * (canvasDimensions.height/2 - this.radius);
+    this.y = this.radius + Math.random() * (canvasDimensions.height / 2 - this.radius);
 };
-
+Circle.prototype.load = function (obj) {
+    obj = JSON.parse(obj);
+    this.color = obj.color;
+    this.radius = obj.radius;
+    this.velocity = obj.velocity;
+    this.gravity = obj.gravity;
+    this.x = obj.x;
+    this.y = obj.y;
+}
+Circle.prototype.save = function () {
+    return JSON.stringify({
+        color: this.color,
+        radius: this.radius,
+        velocity: this.velocity,
+        gravity: this.gravity,
+        x: this.x,
+        y: this.y,
+    });
+}
 // Collided with another circle
 Circle.prototype.collide = function (other) {
     return distance(this, other) < this.radius + other.radius;
@@ -64,7 +82,7 @@ Circle.prototype.update = function () {
     if (this.y > canvasDimensions.height - this.radius) {
         this.y = canvasDimensions.height - this.radius;
         // try and eliminate jitter and microcalculations
-        if (this.velocity.y < this.radius/2 && this.velocity.y > -this.radius/2) { 
+        if (this.velocity.y < this.radius / 2 && this.velocity.y > -this.radius / 2) {
             this.velocity.y = 0;
             if (this.velocity.x < 0.1 && this.velocity.x > -0.1) {
                 this.velocity.x = 0;

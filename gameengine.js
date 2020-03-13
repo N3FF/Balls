@@ -2,13 +2,13 @@
 
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function (/* function */ callback, /* DOMElement */ element) {
-                window.setTimeout(callback, 1000 / 60);
-            };
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (/* function */ callback, /* DOMElement */ element) {
+            window.setTimeout(callback, 1000 / 60);
+        };
 })();
 
 
@@ -29,6 +29,7 @@ Timer.prototype.tick = function () {
 }
 
 function GameEngine() {
+    this.circles;
     this.entities = [];
     this.showOutlines = false;
     this.ctx = null;
@@ -133,4 +134,34 @@ GameEngine.prototype.loop = function () {
     this.click = null;
     this.rightclick = null;
     this.wheel = null;
+}
+
+GameEngine.prototype.save = function () {
+    console.log("save entities " + this.entities.length);
+    this.circles = [];
+    for (var i = 0; i < this.entities.length; i++) {
+        this.circles.push(this.entities[i].save());
+    }
+    console.log(socket.emit("save", { studentname: "Neff", statename: "save", data: this.circles }));
+}
+GameEngine.prototype.load = function () {
+    socket.emit("load", { studentname: "Neff", statename: "save" });
+    socket.on("load", function (resp) {
+        gameEngine.circles = resp.data;
+        gameEngine.entities = [];
+        for (var i = 0; i < gameEngine.circles.length; i++) {
+            var circle = new Circle(gameEngine);
+            circle.load(gameEngine.circles[i]);
+            gameEngine.entities.push(circle);
+        }
+    });
+}
+
+GameEngine.prototype.reload = function () {
+    this.entities = [];
+    for (var i = 0; i < 25; i++) {
+        var circle = new Circle(this);
+        this.addEntity(circle);
+    }
+    console.log("reload entities " + this.entities.length);
 }
