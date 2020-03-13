@@ -13,6 +13,8 @@ var canvasDimensions = {
     height: 0
 }
 
+var gameEngine;
+
 function save(){
     gameEngine.save();
 }
@@ -33,7 +35,6 @@ function toggleCollision(){
     }
 }
 var collision = false;
-var gameEngine;
 var socket;
 
 var init = function () {
